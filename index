@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Banner Section */
+        .banner {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1200x400') center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .banner-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .banner-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content Sections */
+        section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        
+        .about-content, .vision-mission {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-image, .vision-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img, .vision-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        /* Form Results */
+        .form-results {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .form-results h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .result-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-label {
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .headquarters {
+            margin: 1.5rem 0;
+        }
+        
+        .headquarters h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .cities {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #2c3e50;
+                padding: 1rem 0;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+            
+            .banner-content h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content, .vision-mission {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image, .vision-image {
+                order: -1;
+            }
+            
+            .cities {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Company Name</div>
+                <button class="mobile-menu-btn">☰</button>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#profile">Our Profile</a></li>
+                        <li><a href="#message">Message Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="banner">
+            <div class="banner-content">
+                <h1 id="welcome-message">Hi, Welcome To Our Website</h1>
+                <p>We provide innovative solutions for your business needs</p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h2 class="section-title">About Our Company</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x300" alt="About our company">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Profile Section -->
+    <section id="profile" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 class="section-title">Our Profile</h2>
+            <div class="vision-mission">
+                <div class="vision-image">
+                    <img src="https://via.placeholder.com/500x300" alt="Our vision and mission">
+                </div>
+                <div class="vision-text">
+                    <h3>Vision</h3>
+                    <p>To be the leading provider of innovative solutions in our industry, creating value for our customers, employees, and stakeholders.</p>
+                    
+                    <h3>Mission</h3>
+                    <p>Our mission is to deliver exceptional products and services that exceed customer expectations, foster innovation, and drive sustainable growth.</p>
+                    
+                    <h3>Values</h3>
+                    <ul>
+                        <li>Integrity in all our actions</li>
+                        <li>Innovation through continuous improvement</li>
+                        <li>Customer-centric approach</li>
+                        <li>Collaboration and teamwork</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Us Section -->
+    <section id="message">
+        <div class="container">
+            <h2 class="section-title">Message Us</h2>
+            <div class="form-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name">
+                        <div class="error-message" id="name-error">Please enter your name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email">
+                        <div class="error-message" id="email-error">Please enter a valid email</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                        <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate">Tanggal Lahir</label>
+                        <input type="date" id="birthdate" name="birthdate">
+                        <div class="error-message" id="birthdate-error">Please enter your birthdate</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="male" name="gender" value="Laki-Laki">
+                                <label for="male">Laki-Laki</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="female" name="gender" value="Perempuan">
+                                <label for="female">Perempuan</label>
+                            </div>
+                        </div>
+                        <div class="error-message" id="gender-error">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Pesan</label>
+                        <textarea id="message-text" name="message" rows="5" placeholder="Your Message"></textarea>
+                        <div class="error-message" id="message-error">Please enter your message</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+                
+                <div class="form-results" id="form-results">
+                    <h3>Form Submission Results</h3>
+                    <div class="result-item"><span class="result-label">Current Time:</span> <span id="result-time"></span></div>
+                    <div class="result-item"><span class="result-label">Name:</span> <span id="result-name"></span></div>
+                    <div class="result-item"><span class="result-label">Email:</span> <span id="result-email"></span></div>
+                    <div class="result-item"><span class="result-label">Phone:</span> <span id="result-phone"></span></div>
+                    <div class="result-item"><span class="result-label">Tanggal Lahir:</span> <span id="result-birthdate"></span></div>
+                    <div class="result-item"><span class="result-label">Jenis Kelamin:</span> <span id="result-gender"></span></div>
+                    <div class="result-item"><span class="result-label">Pesan:</span> <span id="result-message"></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="headquarters">
+                    <h3>Our Headquarters</h3>
+                    <div class="cities">
+                        <div>Jakarta</div>
+                        <div>Bandung</div>
+                        <div>Surabaya</div>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>1366-578</p>
+                    <p>Created By Your Name</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Welcome message with user's name
+        function updateWelcomeMessage() {
+            const userName = localStorage.getItem('userName') || 'Guest';
+            document.getElementById('welcome-message').textContent = `Hi ${userName}, Welcome To Our Website`;
+        }
+
+        // Form validation and submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const birthdate = document.getElementById('birthdate').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const message = document.getElementById('message-text').value.trim();
+            
+            let isValid = true;
+            
+            // Validate name
+            if (name === '') {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone (simple validation)
+            if (phone === '') {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate birthdate
+            if (birthdate === '') {
+                document.getElementById('birthdate-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate gender
+            if (!gender) {
+                document.getElementById('gender-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate message
+            if (message === '') {
+                document.getElementById('message-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // If form is valid, show results
+            if (isValid) {
+                // Save name for welcome message
+                localStorage.setItem('userName', name);
+                updateWelcomeMessage();
+                
+                // Get current time
+                const now = new Date();
+                const currentTime = now.toLocaleString();
+                
+                // Display form results
+                document.getElementById('result-time').textContent = currentTime;
+                document.getElementById('result-name').textContent = name;
+                document.getElementById('result-email').textContent = email;
+                document.getElementById('result-phone').textContent = phone;
+                document.getElementById('result-birthdate').textContent = formatDate(birthdate);
+                document.getElementById('result-gender').textContent = gender.value;
+                document.getElementById('result-message').textContent = message;
+                
+                // Show results section
+                document.getElementById('form-results').style.display = 'block';
+                
+                // Scroll to results
+                document.getElementById('form-results').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Initialize welcome message on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWelcomeMessage();
+        });
+    </script>
+</body>
+</html>
